@@ -30,7 +30,7 @@ public class SistemaLogin {
         System.out.print("Digite a senha para cadastrar: ");
         String senha = in .nextLine();
 
-        if (senha == null || nome.trim().isEmpty()) {
+        if (senha == null || senha.trim().isEmpty()) {
             System.out.println("Senha invalida. tente novamente.");
             return CadastrarUsuario(in);
         } else {

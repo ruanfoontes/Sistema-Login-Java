@@ -23,7 +23,7 @@ public class SistemaLogin {
     // metodo para cadastrar usuario
     public static String CadastrarUsuario(Scanner in) {
         System.out.print("Digite o nome para cadastro: ");
-        String nome = in .nextLine();
+        String nome = in .nextLine().trim();
 
         if (nome == null || nome.trim().isEmpty()) {
             System.out.println("Nome invalido. tente novamente.");
@@ -31,7 +31,7 @@ public class SistemaLogin {
         }
 
         System.out.print("Digite a senha para cadastrar: ");
-        String senha = in .nextLine();
+        String senha = in .nextLine().trim();
 
         if (senha == null || senha.trim().isEmpty()) {
             System.out.println("Senha invalida. tente novamente.");
@@ -46,16 +46,16 @@ public class SistemaLogin {
             int tentativa = 0;
             while (tentativa <3) {
                 System.out.print("\nDigite seu nome: ");
-                String nome = in.nextLine();
+                String nome = in.nextLine().trim();
 
                 System.out.print("Digite sua senha: ");
-                String senha = in.nextLine();
+                String senha = in.nextLine().trim();
 
                 // verifica se está correto
                 if (nome.equals (nomecorreto) && senha.equals(senhaCorreta)) {
                     System.out.println("\n Login bem-sucessido! Bem-vindo, " + nome + "!");
                     //chama o Menu!
-                    menuPrincipal(in, nome, senha);
+                    menuPrincipal(in, nomecorreto, senhaCorreta);
                     return;
                 }
 
@@ -74,7 +74,7 @@ public class SistemaLogin {
                 System.out.println("3. Sair: ");
                 System.out.print("escolha uma opcao: ");
 
-                String opcao = in.nextLine();
+                String opcao = in.nextLine().trim();
 
                 switch (opcao) {
                     case "1":
@@ -85,7 +85,7 @@ public class SistemaLogin {
 
                     case "2": 
                     System.out.print("Digite a nova senha: ");
-                    senha = in.nextLine();
+                    senha = in.nextLine().trim();
                     System.out.println("Senha alterada com sucesso!");
                     break;
 

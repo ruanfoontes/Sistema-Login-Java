@@ -14,7 +14,10 @@ public class SistemaLogin {
         System.out.println("Nome: " + nomeCadastro);
         System.out.println("Senha: " + senhaCadastro);
 
-        in .close();
+        // chama login!
+        fazerLogin(in, nomeCadastro, senhaCadastro);
+
+        
     }
 
     // metodo para cadastrar usuario
@@ -51,13 +54,53 @@ public class SistemaLogin {
                 // verifica se está correto
                 if (nome.equals (nomecorreto) && senha.equals(senhaCorreta)) {
                     System.out.println("\n Login bem-sucessido! Bem-vindo, " + nome + "!");
-                    return; // encerra a função
+                    //chama o Menu!
+                    menuPrincipal(in, nome, senha);
+                    return;
                 }
 
                 tentativa++;
                 System.out.println("Dados incorretos! Tentativas Restantes: " + (3 - tentativa));
             }
             System.out.println("\n Você errou 3 vezes. Acesso bloqueado!");
+        }
+
+        public static void menuPrincipal(Scanner in, String nome, String senha) {
+            boolean rodando = true;
+            while(rodando) {
+                System.out.println("\n====Menu Principal====");
+                System.out.println("1. ver dados: ");
+                System.out.println("2. Alterar senha: ");
+                System.out.println("3. Sair: ");
+                System.out.print("escolha uma opcao: ");
+
+                String opcao = in.nextLine();
+
+                switch (opcao) {
+                    case "1":
+                        System.out.println("\n=== Seus dados === ");
+                        System.out.println("Nome: " + nome);
+                        System.out.println("Senha: " + senha);
+                        break;
+
+                    case "2": 
+                    System.out.print("Digite a nova senha: ");
+                    senha = in.nextLine();
+                    System.out.println("Senha alterada com sucesso!");
+                    break;
+
+                    case "3":
+                        System.out.println("saindo...");
+                        rodando = false;
+                        break;
+
+                    default:
+                        System.out.println("Opção inválida! Tente novamente.");
+
+
+
+                }
+            }
         }
 
     }

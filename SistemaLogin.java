@@ -34,15 +34,14 @@ public class SistemaLogin {
             System.out.println("Senha invalida. tente novamente.");
             return CadastrarUsuario(in);
         } else {
-            //retorna os dadados concatenados
+                //retorna os dadados concatenados
         return nome + "," + senha;
-
-
         }
+    }
 
-        public static void fazerLogin(Scanner in, string nomecorreto, String senhaCorreta) {
+        public static void fazerLogin(Scanner in, String nomecorreto, String senhaCorreta) {
             int tentativa = 0;
-            while (tentativas <3) {
+            while (tentativa <3) {
                 System.out.print("\nDigite seu nome: ");
                 String nome = in.nextLine();
 
@@ -50,16 +49,15 @@ public class SistemaLogin {
                 String senha = in.nextLine();
 
                 // verifica se está correto
-                if (nome.equals (nomeCorreto) && senha.equals(senhaCorreta)) {
+                if (nome.equals (nomecorreto) && senha.equals(senhaCorreta)) {
                     System.out.println("\n Login bem-sucessido! Bem-vindo, " + nome + "!");
                     return; // encerra a função
                 }
 
-                tentativas++;
-                System.out.println("Dados incorretos! Tentativas Restantes: " + (3 - tentativas));
+                tentativa++;
+                System.out.println("Dados incorretos! Tentativas Restantes: " + (3 - tentativa));
             }
             System.out.println("\n Você errou 3 vezes. Acesso bloqueado!");
         }
 
     }
-}

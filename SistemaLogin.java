@@ -4,46 +4,39 @@ public class SistemaLogin {
         Scanner in = new Scanner(System.in);
 
         // chama o cadastro de usuario e armazena os dados retornados
-        String dados = CadastrarUsuario(in);
+        Usuario usuario = cadastrarUsuario(in);
 
-        // separa os dados retornando em nome e senha
-        String nomeCadastro = dados.split(",")[0];
-        String senhaCadastro = dados.split(",")[1];
-
-        System.out.println("\nUsuário cadastrado com sucesso!");
-        System.out.println("Nome: " + nomeCadastro);
-        System.out.println("Senha: " + senhaCadastro);
+       System.out.println("Usuário cadastrado: " + usuario.getNome());
 
         // chama login!
-        fazerLogin(in, nomeCadastro, senhaCadastro);
+        fazerLogin(in, usuario);
 
         
     }
 
     // metodo para cadastrar usuario
-    public static String CadastrarUsuario(Scanner in) {
+    public static Usuario cadastrarUsuario(Scanner in) {
         System.out.print("Digite o nome para cadastro: ");
         String nome = in .nextLine().trim();
 
-        if (nome == null || nome.trim().isEmpty()) {
+        if (nome.isEmpty()) {
             System.out.println("Nome invalido. tente novamente.");
-            return CadastrarUsuario(in);
+            return cadastrarUsuario(in);
         }
 
         System.out.print("Digite a senha para cadastrar: ");
         String senha = in .nextLine().trim();
 
-        if (senha == null || senha.trim().isEmpty()) {
+        if (senha.isEmpty()) {
             System.out.println("Senha invalida. tente novamente.");
-            return CadastrarUsuario(in);
+            return cadastrarUsuario(in);
 
-        } else {
-                //retorna os dadados concatenados
-        Usuario Usuario = CadastrarUsuario(in);
         }
+
+        return new Usuario(nome, senha);
     }
 
-        public static void fazerLogin(Scanner in, String nomecorreto, String senhaCorreta) {
+        public static void fazerLogin(Scanner in, Usuario usuario) {
             int tentativa = 0;
             while (tentativa <3) {
                 System.out.print("\nDigite seu nome: ");
@@ -53,10 +46,10 @@ public class SistemaLogin {
                 String senha = in.nextLine().trim();
 
                 // verifica se está correto
-                if (nome.equals(Usuario.getNome) && Usuario.validarsenha(senhaDigitada)) {
+                if (nome.equals(usuario.getNome()) && usuario.validarSenha(senha)) {
                     System.out.println("\n Login bem-sucessido! Bem-vindo!");
                     //chama o Menu!
-                    menuPrincipal(in, nomecorreto, senhaCorreta);
+                    menuPrincipal(in, usuario);
                     return;
                 }
 
@@ -66,7 +59,7 @@ public class SistemaLogin {
             System.out.println("\n Você errou 3 vezes. Acesso bloqueado!");
         }
 
-        public static void menuPrincipal(Scanner in, String nome, String senha) {
+        public static void menuPrincipal(Scanner in, Usuario usuario) {
             boolean rodando = true;
             while(rodando) {
                 System.out.println("\n====Menu Principal====");
@@ -79,14 +72,14 @@ public class SistemaLogin {
 
                 switch (opcao) {
                     case "1":
-                        System.out.println("\n=== Seus dados === ");
-                        System.out.println("Nome: " + nome);
-                        System.out.println("Senha: " + senha);
+                        System.out.println("\nNome: " + usuario.getNome());
+                        System.out.println("senha: " + usuario.getSenha());
                         break;
 
                     case "2": 
                     System.out.print("Digite a nova senha: ");
-                    senha = in.nextLine().trim();
+                    String novaSenha = in.nextLine().trim();
+                    usuario.alterarSenha(novaSenha);
                     System.out.println("Senha alterada com sucesso!");
                     break;
 

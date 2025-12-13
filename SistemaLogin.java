@@ -36,6 +36,7 @@ public class SistemaLogin {
         if (senha == null || senha.trim().isEmpty()) {
             System.out.println("Senha invalida. tente novamente.");
             return CadastrarUsuario(in);
+
         } else {
                 //retorna os dadados concatenados
         return nome + "," + senha;

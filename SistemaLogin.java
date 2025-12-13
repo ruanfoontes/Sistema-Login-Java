@@ -39,7 +39,7 @@ public class SistemaLogin {
 
         } else {
                 //retorna os dadados concatenados
-        return nome + "," + senha;
+        Usuario Usuario = CadastrarUsuario(in);
         }
     }
 
@@ -53,8 +53,8 @@ public class SistemaLogin {
                 String senha = in.nextLine().trim();
 
                 // verifica se está correto
-                if (nome.equals (nomecorreto) && senha.equals(senhaCorreta)) {
-                    System.out.println("\n Login bem-sucessido! Bem-vindo, " + nome + "!");
+                if (nome.equals(Usuario.getNome) && Usuario.validarsenha(senhaDigitada)) {
+                    System.out.println("\n Login bem-sucessido! Bem-vindo!");
                     //chama o Menu!
                     menuPrincipal(in, nomecorreto, senhaCorreta);
                     return;

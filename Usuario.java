@@ -7,7 +7,16 @@ public class Usuario {
         this.senha = senha; // obriga o usuário a narcer completo
         
     }
+    public String getNome() {
+        return nome;
+    }
     public boolean validarSenha(String senhaDigitada) {
         return this.senha.equals(senhaDigitada);
+    }
+    public void alterarSenha(String novaSenha) {
+        this.senha = novaSenha;
+    }
+    public String getSenha() {
+        return senha;
     }
 }

@@ -1,17 +1,34 @@
 import java.util.Scanner;
+import java.io.*;
+
 public class SistemaLogin {
+    private static final String ARQUIVO_USUARIO = "usuario.dat";
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 
-        // chama o cadastro de usuario e armazena os dados retornados
-        Usuario usuario = cadastrarUsuario(in);
+        Usuario usuario = carregarUsuario();
 
-       System.out.println("Usuário cadastrado: " + usuario.getNome());
+        if (usuario != null) {
+            System.out.println("Usuário salvo encontrado: " + usuario.getNome());
+            System.out.print("Deseja usar esse usuário? (s/n): ");
+            String escolha = in.nextLine().trim().toLowerCase();
+            if (!escolha.equals("s")) {
+                usuario = cadastrarUsuario(in);
+                salvarUsuario(usuario);
+                System.out.println("Usuário cadastrado e salvo: " + usuario.getNome());
+            }
+        } else {
+            // chama o cadastro de usuario e armazena os dados retornados
+            usuario = cadastrarUsuario(in);
+            salvarUsuario(usuario);
+            System.out.println("Usuário cadastrado: " + usuario.getNome());
+        }
 
         // chama login!
         fazerLogin(in, usuario);
 
-        
+        in.close();
     }
 
     // metodo para cadastrar usuario
@@ -80,6 +97,7 @@ public class SistemaLogin {
                     System.out.print("Digite a nova senha: ");
                     String novaSenha = in.nextLine().trim();
                     usuario.alterarSenha(novaSenha);
+                        salvarUsuario(usuario);
                     System.out.println("Senha alterada com sucesso!");
                     break;
 
@@ -97,4 +115,29 @@ public class SistemaLogin {
             }
         }
 
-    }
+    
+    // métodos de persistência
+    public static void salvarUsuario(Usuario usuario) {
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(ARQUIVO_USUARIO))) {
+                oos.writeObject(usuario);
+            } catch (IOException e) {
+                System.out.println("Erro ao salvar usuário: " + e.getMessage());
+            }
+        }
+
+        public static Usuario carregarUsuario() {
+            File f = new File(ARQUIVO_USUARIO);
+            if (!f.exists()) return null;
+
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f))) {
+                Object obj = ois.readObject();
+                if (obj instanceof Usuario) {
+                    return (Usuario) obj;
+                }
+            } catch (IOException | ClassNotFoundException e) {
+                System.out.println("Erro ao carregar usuário: " + e.getMessage());
+            }
+            return null;
+        }
+
+}
